@@ -122,5 +122,29 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
+        internal static void UpdateShot(string v, Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateUsername(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateLastName(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateFirstName(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateEmail(Client client)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
