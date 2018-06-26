@@ -23,7 +23,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static object GetAnimalByID(int iD)
+        internal static Animal GetAnimalByID(int iD)
         {
             throw new NotImplementedException();
         }
@@ -88,7 +88,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static object GetShots(Animal animal)
+        internal static IQueryable<AnimalShotJunction> GetShots(Animal animal)
         {
             throw new NotImplementedException();
         }
@@ -146,5 +146,6 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
+
     }
 }
