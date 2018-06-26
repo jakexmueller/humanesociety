@@ -33,12 +33,12 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static object RetrieveClients()
+        internal static IQueryable<Client> RetrieveClients()
         {
             throw new NotImplementedException();
         }
 
-        internal static void AddAnimal()
+        internal static void AddAnimal(Animal animal)
         {
             throw new NotImplementedException();
         }
@@ -93,7 +93,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static object GetStates()
+        internal static IQueryable<USState> GetStates()
         {
             throw new NotImplementedException();
         }
