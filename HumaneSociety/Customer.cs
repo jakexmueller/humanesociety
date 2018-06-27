@@ -159,7 +159,7 @@ namespace HumaneSociety
             string username = UserInterface.GetUserInput();
             var clients = Query.RetrieveClients();
             var clientUsernames = from client in clients select client.userName;
-            if (CheckForForValue(clientUsernames.ToList(), username))
+            if (CheckForValue(clientUsernames.ToList(), username))
             {
                 Console.Clear();
                 UserInterface.DisplayUserOptions("Username already in use please try another username");
@@ -167,7 +167,7 @@ namespace HumaneSociety
             }
             return username;
         }
-        public static bool CheckForForValue<T>(List<T> items, T value)
+        public static bool CheckForValue<T>(List<T> items, T value)
         {
             if (items.Contains(value))
             {
@@ -183,7 +183,7 @@ namespace HumaneSociety
             string email = UserInterface.GetUserInput();
             if (email.Contains("@") && email.Contains("."))
             {
-                if (CheckForForValue(clientEmails.ToList(), email))
+                if (CheckForValue(clientEmails.ToList(), email))
                 {
                     Console.Clear();
                     UserInterface.DisplayUserOptions("Email already in use please try another email or contact support for forgotten account info");
@@ -237,12 +237,12 @@ namespace HumaneSociety
                 string username = GetUserName();
                 string email = GetEmail();
                 Console.Clear();
-                UserInterface.DisplayUserOptions("Please enter password (Warning password is CaSe SeNsItIvE)");
-                string password = UserInterface.GetUserInput();
                 UserInterface.DisplayUserOptions("Enter your first name.");
                 string firstName = UserInterface.GetUserInput();
                 UserInterface.DisplayUserOptions("Enter your last name.");
                 string lastName = UserInterface.GetUserInput();
+                UserInterface.DisplayUserOptions("Please enter password (Warning password is CaSe SeNsItIvE)");
+                string password = UserInterface.GetUserInput();                
                 int zipCode = GetZipCode();
                 int state = GetState();
                 UserInterface.DisplayUserOptions("Please enter your street address");
@@ -265,13 +265,13 @@ namespace HumaneSociety
                 var clientEmails = from client in clients select client.email;
                 string username = GetUserName();
                 string email = GetEmail();
-                if (CheckForForValue(clientUsernames.ToList(), username))
+                if (CheckForValue(clientUsernames.ToList(), username))
                 {
                     Console.Clear();
                     UserInterface.DisplayUserOptions("Username already in use please try another username");
                     return CreateClient(clients);
                 }
-                else if (CheckForForValue(clientEmails.ToList(), email))
+                else if (CheckForValue(clientEmails.ToList(), email))
                 {
                     Console.Clear();
                     UserInterface.DisplayUserOptions("Email already in use please try another email or contact support for forgotten account info");
