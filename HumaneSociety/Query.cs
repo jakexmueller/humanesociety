@@ -59,9 +59,8 @@ namespace HumaneSociety
         internal static void AddAnimal(Animal animal)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            database.Animals.InsertOnSubmit(animal);
             database.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
@@ -131,9 +130,12 @@ namespace HumaneSociety
         internal static int? GetLocation()
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            Animal animal = new Animal();
+            Console.WriteLine("What is the pet's name?");
+            string petName = Console.ReadLine();
+            var roomNumber = database.Animals.Where(x => x.name == petName).Select(x => x.location);
             database.SubmitChanges();
-            throw new NotImplementedException();
+            return animal.location;
         }
 
         internal static IQueryable<AnimalShotJunction> GetShots(Animal animal)
