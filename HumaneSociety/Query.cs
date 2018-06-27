@@ -130,9 +130,12 @@ namespace HumaneSociety
         internal static int? GetLocation()
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            Animal animal = new Animal();
+            Console.WriteLine("What is the pet's name?");
+            string petName = Console.ReadLine();
+            var roomNumber = database.Animals.Where(x => x.name == petName).Select(x => x.location);
             database.SubmitChanges();
-            throw new NotImplementedException();
+            return animal.location;
         }
 
         internal static IQueryable<AnimalShotJunction> GetShots(Animal animal)
