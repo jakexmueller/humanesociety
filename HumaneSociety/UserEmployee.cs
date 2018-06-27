@@ -279,8 +279,12 @@ namespace HumaneSociety
         private void CreateNewEmployee()
         {
             Console.Clear();
-            string email = UserInterface.GetStringData("email", "your");
+            string firstName = UserInterface.GetStringData("first name", "your");
+            string lastName = UserInterface.GetStringData("last name", "your");
+            string userName = UserInterface.GetStringData("desired user name", "your");
+            string password = UserInterface.GetStringData("desired CaSe SEnsiTive", "your");
             int employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "your"));
+            string email = UserInterface.GetStringData("email address", "your");
             try
             {
                 employee = Query.RetrieveEmployeeUser(email, employeeNumber);
