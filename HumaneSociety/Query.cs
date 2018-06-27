@@ -127,13 +127,22 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
+        internal static void UpdateLocation(Animal animal)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            Room room = new Room();
+            Console.WriteLine("This pet is currently in room # " + animal.location + " It can be moved into the following rooms:");
+            var roomNumber = database.Animals.Where(a => a.name == null);
+            Console.WriteLine(roomNumber);
+        }
+
         internal static int? GetLocation()
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             Animal animal = new Animal();
             Console.WriteLine("What is the pet's name?");
             string petName = Console.ReadLine();
-            var roomNumber = database.Animals.Where(x => x.name == petName).Select(x => x.location);
+            var roomNumber = database.Animals.Where(a => a.name == petName).Select(a => a.location);
             database.SubmitChanges();
             return animal.location;
         }
