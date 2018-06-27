@@ -59,9 +59,8 @@ namespace HumaneSociety
         internal static void AddAnimal(Animal animal)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            database.Animals.InsertOnSubmit(animal);
             database.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
