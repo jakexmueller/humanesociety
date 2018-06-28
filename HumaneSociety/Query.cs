@@ -8,6 +8,8 @@ namespace HumaneSociety
 {
     public static class Query
     {
+        public delegate void EmployeeOperator(Employee employee);
+
         internal static Client GetClient(string userName, string password)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
@@ -16,32 +18,54 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void RunEmployeeQueries(Employee employee, string crudOperation)
+        public static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            //EmployeeOperator EOP = setDelegate(crudOperation);
-            //EOP(employee);
+            EmployeeOperator EOP = setDelegate(crudOperation);
+            EOP(employee);
         }
 
-        //private static EmployeeOperator setDelegate(string crudOperation)
-        //{
-        //    object EmployeeCreator = null;
-        //    object EmployeeReader = null;
-        //    object EmployeeUpdater = null;
-        //    object EmployeeDeleter = null;
-        //    switch (crudOperation)
-        //    {
-        //        case "create":
-        //            return new EmployeeOperator(EmployeeCreator);
-        //        case "read":
-        //            return new EmployeeOperator(EmployeeReader);
-        //        case "update":
-        //            return new EmployeeOperator(EmployeeUpdater);
-        //        case "delete":
-        //            return new EmployeeOperator(EmployeeDeleter);
-        //        default:
-        //            return new EmployeeOperator(EmployeeReader);
-        //    }
-        //}
+        private static EmployeeOperator setDelegate(string crudOperation)
+        {
+            
+
+            switch (crudOperation)
+            {
+                case "create":
+                    return new EmployeeOperator(EmployeeCreator);
+                case "read":
+                    return new EmployeeOperator(EmployeeReader);
+                case "update":
+                    return new EmployeeOperator(EmployeeUpdater);
+                case "delete":
+                    return new EmployeeOperator(EmployeeDeleter);
+                default:
+                    return new EmployeeOperator(EmployeeReader);
+            }
+        }
+
+        public static void EmployeeCreator(Employee employee)
+        {
+
+        }
+
+        public static void EmployeeReader(Employee employee)
+        {
+
+        }
+
+        public static void EmployeeUpdater(Employee employee)
+        {
+
+        }
+
+        public static void EmployeeDeleter(Employee employee)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Employees.DeleteOnSubmit(employee);
+            database.SubmitChanges();
+        }
+
+
 
         internal static IQueryable<ClientAnimalJunction> GetUserAdoptionStatus(Client client)
         {
