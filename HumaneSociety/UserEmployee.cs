@@ -238,7 +238,10 @@ namespace HumaneSociety
             if ((bool)UserInterface.GetBitData(options))
             {
                 Query.RemoveAnimal(animal);
+                //Add animal.price to bankAccount.account
+                Query.PurchaseAnimal();
             }
+            
         }
         private void AddAnimal()
         {

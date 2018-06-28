@@ -186,6 +186,14 @@ namespace HumaneSociety
 			}
 		}
 		
+		public System.Data.Linq.Table<bankAccount> bankAccounts
+		{
+			get
+			{
+				return this.GetTable<bankAccount>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Animal> Animals
 		{
 			get
@@ -2232,6 +2240,33 @@ namespace HumaneSociety
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.bankAccount")]
+	public partial class bankAccount
+	{
+		
+		private System.Nullable<int> _account;
+		
+		public bankAccount()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_account", DbType="Int")]
+		public System.Nullable<int> account
+		{
+			get
+			{
+				return this._account;
+			}
+			set
+			{
+				if ((this._account != value))
+				{
+					this._account = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Animals")]
 	public partial class Animal : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2263,6 +2298,8 @@ namespace HumaneSociety
 		private string _adoptionStatus;
 		
 		private System.Nullable<int> _Employee_ID;
+		
+		private System.Nullable<int> _price;
 		
 		private EntitySet<ClientAnimalJunction> _ClientAnimalJunctions;
 		
@@ -2306,6 +2343,8 @@ namespace HumaneSociety
     partial void OnadoptionStatusChanged();
     partial void OnEmployee_IDChanging(System.Nullable<int> value);
     partial void OnEmployee_IDChanged();
+    partial void OnpriceChanging(System.Nullable<int> value);
+    partial void OnpriceChanged();
     #endregion
 		
 		public Animal()
@@ -2591,6 +2630,26 @@ namespace HumaneSociety
 					this._Employee_ID = value;
 					this.SendPropertyChanged("Employee_ID");
 					this.OnEmployee_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Int")]
+		public System.Nullable<int> price
+		{
+			get
+			{
+				return this._price;
+			}
+			set
+			{
+				if ((this._price != value))
+				{
+					this.OnpriceChanging(value);
+					this.SendPropertyChanging();
+					this._price = value;
+					this.SendPropertyChanged("price");
+					this.OnpriceChanged();
 				}
 			}
 		}
