@@ -103,11 +103,23 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static int? GetBreed()
+        internal static int? GetBreed(string breedName, string patternType)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            database.SubmitChanges();
+            var breedQueries = (
+                from breedQuery in database.Breeds
+                where breedName == breedQuery.breed1 && patternType == breedQuery.pattern
+                select breedQuery).ToList();
+            if (breedQueries.Count == 0)
+            {
+                Breed breed = new Breed();
+                breed.breed1 = breedName;
+                breed.pattern = patternType;
+                database.Breeds.InsertOnSubmit(breed);
+                database.SubmitChanges();
+                breedQueries.Add(breed);
+            }
+            return breedQueries[0].ID;
             throw new NotImplementedException();
         }
 
