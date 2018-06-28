@@ -16,13 +16,32 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void RunEmployeeQueries(Employee employee, string v)
+        internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            database.SubmitChanges();
-            throw new NotImplementedException();
+            //EmployeeOperator EOP = setDelegate(crudOperation);
+            //EOP(employee);
         }
+
+        //private static EmployeeOperator setDelegate(string crudOperation)
+        //{
+        //    object EmployeeCreator = null;
+        //    object EmployeeReader = null;
+        //    object EmployeeUpdater = null;
+        //    object EmployeeDeleter = null;
+        //    switch (crudOperation)
+        //    {
+        //        case "create":
+        //            return new EmployeeOperator(EmployeeCreator);
+        //        case "read":
+        //            return new EmployeeOperator(EmployeeReader);
+        //        case "update":
+        //            return new EmployeeOperator(EmployeeUpdater);
+        //        case "delete":
+        //            return new EmployeeOperator(EmployeeDeleter);
+        //        default:
+        //            return new EmployeeOperator(EmployeeReader);
+        //    }
+        //}
 
         internal static IQueryable<ClientAnimalJunction> GetUserAdoptionStatus(Client client)
         {
@@ -110,11 +129,23 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static int? GetBreed()
+        internal static int? GetBreed(string breedName, string patternType)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            database.SubmitChanges();
+            var breedQueries = (
+                from breedQuery in database.Breeds
+                where breedName == breedQuery.breed1 && patternType == breedQuery.pattern
+                select breedQuery).ToList();
+            if (breedQueries.Count == 0)
+            {
+                Breed breed = new Breed();
+                breed.breed1 = breedName;
+                breed.pattern = patternType;
+                database.Breeds.InsertOnSubmit(breed);
+                database.SubmitChanges();
+                breedQueries.Add(breed);
+            }
+            return breedQueries[0].ID;
             throw new NotImplementedException();
         }
 
@@ -126,12 +157,22 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static int? GetDiet()
+        internal static int? GetDiet(string foodType, int foodAmount)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            database.SubmitChanges();
-            throw new NotImplementedException();
+            var dietQueries = (
+                from dietQuery in database.DietPlans
+                where foodType == dietQuery.food && foodAmount == dietQuery.amount
+                select dietQuery).ToList();
+            if (dietQueries.Count == 0)
+            {
+                DietPlan dietplan = new DietPlan();
+                dietplan.food = foodType;
+                dietplan.amount = foodAmount;
+                database.DietPlans.InsertOnSubmit(dietplan);
+                database.SubmitChanges();
+            }
+            return dietQueries[0].ID;
         }
 
         internal static void UpdateLocation(Animal animal)
@@ -157,9 +198,44 @@ namespace HumaneSociety
         internal static IQueryable<AnimalShotJunction> GetShots(Animal animal)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            Console.WriteLine("Please enter the animal's ID number");
+            int animalID = int.Parse(Console.ReadLine());
+            var shots = database.AnimalShotJunctions.Where(a => a.Animal_ID == animalID);
+            return shots;
+        }
 
-            database.SubmitChanges();
-            throw new NotImplementedException();
+        public static Shot GetShot(int shotId)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var shot = db.Shots.Where(s => s.ID == shotId).First();
+            return shot;
+        }
+
+        public static void UpdateShot(int shotId, Animal animal)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var updateShot = db.AnimalShotJunctions.Where(s => s.Animal_ID == animal.ID && s.Shot_ID == shotId).First();
+            updateShot.dateRecieved = DateTime.Now;
+
+            db.SubmitChanges();
+        }
+
+        public static void AddShot(Shot shot, Animal animal)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            AnimalShotJunction shotUpdate = new AnimalShotJunction();
+            shotUpdate.Animal_ID = animal.ID;
+            shotUpdate.dateRecieved = DateTime.Now;
+            shotUpdate.Shot_ID = shot.ID;
+
+            db.AnimalShotJunctions.InsertOnSubmit(shotUpdate);
+            db.SubmitChanges();
+        }
+
+        public static IQueryable<Shot> GetAllShots()
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            return db.Shots;
         }
 
         internal static IQueryable<USState> GetStates()
