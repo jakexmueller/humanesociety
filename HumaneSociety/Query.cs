@@ -119,12 +119,22 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static int? GetDiet()
+        internal static int? GetDiet(string foodType, int foodAmount)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            database.SubmitChanges();
-            throw new NotImplementedException();
+            var dietQueries = (
+                from dietQuery in database.DietPlans
+                where foodType == dietQuery.food && foodAmount == dietQuery.amount
+                select dietQuery).ToList();
+            if (dietQueries.Count == 0)
+            {
+                DietPlan dietplan = new DietPlan();
+                dietplan.food = foodType;
+                dietplan.amount = foodAmount;
+                database.DietPlans.InsertOnSubmit(dietplan);
+                database.SubmitChanges();
+            }
+            return dietQueries[0].ID;
         }
 
         internal static void UpdateLocation(Animal animal)
