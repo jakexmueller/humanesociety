@@ -200,7 +200,8 @@ namespace HumaneSociety
         internal static void UpdateAdoption(bool v, ClientAnimalJunction clientAnimalJunction)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            Animal animal = new Animal();
+            animal.adoptionStatus = "adopted";
             database.SubmitChanges();
             throw new NotImplementedException();
         }
