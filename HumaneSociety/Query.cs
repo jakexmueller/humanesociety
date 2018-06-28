@@ -48,6 +48,13 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
+        internal static void PurchaseAnimal()
+        {
+            Animal animal = new Animal();
+            bankAccount bankAccount = new bankAccount();
+            bankAccount.account += animal.price;
+        }
+
         internal static IQueryable<Client> RetrieveClients()
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
