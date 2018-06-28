@@ -281,7 +281,6 @@ namespace HumaneSociety
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
             database.SubmitChanges();
             throw new NotImplementedException();
         }
