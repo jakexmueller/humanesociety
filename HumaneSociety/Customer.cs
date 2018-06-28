@@ -247,7 +247,7 @@ namespace HumaneSociety
                 int state = GetState();
                 UserInterface.DisplayUserOptions("Please enter your street address");
                 string streetAddress = UserInterface.GetUserInput();
-                Query.AddNewClient(firstName, lastName, username, password, email, streetAddress, zipCode, state);
+                Query.AddNewClient(client);
                 Console.Clear();
                 UserInterface.DisplayUserOptions("Profile successfully added");
                 return true;
@@ -290,7 +290,7 @@ namespace HumaneSociety
                     int state = GetState();
                     UserInterface.DisplayUserOptions("Please enter your street address");
                     string streetAddress = UserInterface.GetUserInput();
-                    Query.AddNewClient(firstName, lastName, username, password, email, streetAddress, zipCode, state);
+                    Query.AddNewClient(client);
                     Console.Clear();
                     UserInterface.DisplayUserOptions("Profile successfully added");
 

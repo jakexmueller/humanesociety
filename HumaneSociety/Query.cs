@@ -45,17 +45,21 @@ namespace HumaneSociety
 
         public static void EmployeeCreator(Employee employee)
         {
-
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Employees.InsertOnSubmit(employee);
+            database.SubmitChanges();
         }
 
         public static void EmployeeReader(Employee employee)
         {
-
+            
         }
 
         public static void EmployeeUpdater(Employee employee)
         {
-
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Employees.InsertOnSubmit(employee);
+            database.SubmitChanges();
         }
 
         public static void EmployeeDeleter(Employee employee)
@@ -113,12 +117,11 @@ namespace HumaneSociety
             database.SubmitChanges();
         }
 
-        internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
+        internal static void AddNewClient(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            database.Clients.InsertOnSubmit(client);
             database.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         internal static void AddUsernameAndPassword(Employee employee)
@@ -230,36 +233,36 @@ namespace HumaneSociety
 
         public static Shot GetShot(int shotId)
         {
-            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            var shot = db.Shots.Where(s => s.ID == shotId).First();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var shot = database.Shots.Where(s => s.ID == shotId).First();
             return shot;
         }
 
         public static void UpdateShot(int shotId, Animal animal)
         {
-            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            var updateShot = db.AnimalShotJunctions.Where(s => s.Animal_ID == animal.ID && s.Shot_ID == shotId).First();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var updateShot = database.AnimalShotJunctions.Where(s => s.Animal_ID == animal.ID && s.Shot_ID == shotId).First();
             updateShot.dateRecieved = DateTime.Now;
 
-            db.SubmitChanges();
+            database.SubmitChanges();
         }
 
         public static void AddShot(Shot shot, Animal animal)
         {
-            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             AnimalShotJunction shotUpdate = new AnimalShotJunction();
             shotUpdate.Animal_ID = animal.ID;
             shotUpdate.dateRecieved = DateTime.Now;
             shotUpdate.Shot_ID = shot.ID;
 
-            db.AnimalShotJunctions.InsertOnSubmit(shotUpdate);
-            db.SubmitChanges();
+            database.AnimalShotJunctions.InsertOnSubmit(shotUpdate);
+            database.SubmitChanges();
         }
 
         public static IQueryable<Shot> GetAllShots()
         {
-            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            return db.Shots;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            return database.Shots;
         }
 
         internal static IQueryable<USState> GetStates()
@@ -273,9 +276,8 @@ namespace HumaneSociety
         internal static void RemoveAnimal(Animal animal)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            database.Animals.DeleteOnSubmit(animal);
             database.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
@@ -289,9 +291,9 @@ namespace HumaneSociety
         internal static void UpdateAddress(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            var addressUpdate = database.Clients.Where(c => c.ID == client.ID);
+            database.Clients.InsertOnSubmit(client);
             database.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         internal static void UpdateAdoption(bool v, ClientAnimalJunction clientAnimalJunction)
@@ -306,7 +308,7 @@ namespace HumaneSociety
         internal static void updateClient(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            database.Clients.DeleteOnSubmit(client);
             database.SubmitChanges();
             throw new NotImplementedException();
         }
@@ -321,33 +323,33 @@ namespace HumaneSociety
         internal static void UpdateUsername(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            var usernameUpdate = database.Clients.Where(c => c.ID == client.ID);
+            database.Clients.InsertOnSubmit(client);
             database.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         internal static void UpdateLastName(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            var lastNameUpdate = database.Clients.Where(c => c.ID == client.ID);
+            database.Clients.InsertOnSubmit(client);
             database.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         internal static void UpdateFirstName(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            var firstNameUpdate = database.Clients.Where(c => c.ID == client.ID);
+            database.Clients.InsertOnSubmit(client);
             database.SubmitChanges();
-            throw new NotImplementedException();
         }
 
         internal static void UpdateEmail(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
+            var emailUpdate = database.Clients.Where(c => c.ID == client.ID);
+            database.Clients.InsertOnSubmit(client);
             database.SubmitChanges();
-            throw new NotImplementedException();
         }
 
     }

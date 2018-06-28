@@ -74,6 +74,7 @@ namespace HumaneSociety
             {
                 Query.RunEmployeeQueries(employee, "update");
                 UserInterface.DisplayUserOptions("Employee update successful.");
+                return;
             }
             catch
             {
@@ -102,7 +103,7 @@ namespace HumaneSociety
         private void RemoveEmployee()
         {
             Employee employee = new Employee();
-            employee.lastName = UserInterface.GetStringData("last name", "the employee's"); ;
+            employee.lastName = UserInterface.GetStringData("last name", "the employee's");
             employee.employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
             try
             {
