@@ -16,7 +16,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void RunEmployeeQueries(Employee employee, string v)
+        internal static void RunEmployeeQueries(Employee employee, string crud)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
 
@@ -172,8 +172,11 @@ namespace HumaneSociety
         internal static IQueryable<AnimalShotJunction> GetShots(Animal animal)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            database.SubmitChanges();
+            Console.WriteLine("Please enter the animal's ID number");
+            //int animalID = int.Parse(Console.ReadLine());
+            //ShotId shotId = database.AnimalShotJunctions.Where(a => a.Animal_ID == animalID).Select(a => a.Shot_ID).ToList();
+            //database.SubmitChanges();
+            //return shotId;
             throw new NotImplementedException();
         }
 
